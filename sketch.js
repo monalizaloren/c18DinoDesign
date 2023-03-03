@@ -38,11 +38,13 @@ function preload(){
 }
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  //A largura do canva será 'windowWidth' e a altura do canva será 'windowHeight'
+  createCanvas(???, ???);
   
   sun = createSprite(width-50,100,10,10);
   sun.addAnimation("sun", sunAnimation);
-  sun.scale = 0.1
+  //Defina o tamanho do sol para 0.1
+  
   
   trex = createSprite(50,height-70,20,50);
   
@@ -51,8 +53,7 @@ function setup() {
   trex.addAnimation("collided", trex_collided);
   trex.setCollider('circle',0,0,350)
   trex.scale = 0.08
-  // trex.debug=true
-  
+ 
   invisibleGround = createSprite(width/2,height-10,width,125);  
   invisibleGround.shapeColor = "#f4cbaa";
   
@@ -74,7 +75,6 @@ function setup() {
   restart.visible = false;
   
  
-  // invisibleGround.visible =false
 
   cloudsGroup = new Group();
   obstaclesGroup = new Group();
@@ -83,7 +83,7 @@ function setup() {
 }
 
 function draw() {
-  //trex.debug = true;
+  
   background(backgroundImg);
   textSize(20);
   fill("black")
@@ -94,11 +94,10 @@ function draw() {
     score = score + Math.round(getFrameRate()/60);
     ground.velocityX = -(6 + 3*score/100);
     
-    if((touches.length > 0 || keyDown("SPACE")) && trex.y  >= height-120) {
-      jumpSound.play( )
-      trex.velocityY = -10;
-       touches = [];
-    }
+    //Programe que...
+    //Se o toque for maior que 0, ou seja, se ele existir ou você pressionar a tecla de espaço e a altura do trex for maior que 120...
+    //o resultado será o dino dar um pulo
+    //???
     
     trex.velocityY = trex.velocityY + 0.8
   
@@ -125,17 +124,17 @@ function draw() {
     obstaclesGroup.setVelocityXEach(0);
     cloudsGroup.setVelocityXEach(0);
     
-    //change the trex animation
+   
     trex.changeAnimation("collided",trex_collided);
     
     //set lifetime of the game objects so that they are never destroyed
     obstaclesGroup.setLifetimeEach(-1);
     cloudsGroup.setLifetimeEach(-1);
     
-    if(touches.length>0 || keyDown("SPACE")) {      
-      reset();
-      touches = []
-    }
+    //Programe que...
+    //Se o toque for maior que 0 ou você pressionar 'espaço'...
+    //Acontecerá a função reset
+    //???
   }
   
   
@@ -150,15 +149,13 @@ function spawnClouds() {
     cloud.addImage(cloudImage);
     cloud.scale = 0.5;
     cloud.velocityX = -3;
-    
-     //assign lifetime to the variable
     cloud.lifetime = 300;
     
-    //adjust the depth
+    
     cloud.depth = trex.depth;
     trex.depth = trex.depth+1;
     
-    //add each cloud to the group
+    
     cloudsGroup.add(cloud);
   }
   
@@ -168,11 +165,11 @@ function spawnObstacles() {
   if(frameCount % 60 === 0) {
     var obstacle = createSprite(600,height-95,20,30);
     obstacle.setCollider('circle',0,0,45)
-    // obstacle.debug = true
+   
   
     obstacle.velocityX = -(6 + 3*score/100);
     
-    //generate random obstacles
+ 
     var rand = Math.round(random(1,2));
     switch(rand) {
       case 1: obstacle.addImage(obstacle1);
@@ -182,12 +179,12 @@ function spawnObstacles() {
       default: break;
     }
     
-    //assign scale and lifetime to the obstacle           
+      
     obstacle.scale = 0.3;
     obstacle.lifetime = 300;
     obstacle.depth = trex.depth;
     trex.depth +=1;
-    //add each obstacle to the group
+    
     obstaclesGroup.add(obstacle);
   }
 }
